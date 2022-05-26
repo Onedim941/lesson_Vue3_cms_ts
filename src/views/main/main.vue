@@ -51,8 +51,6 @@ export default defineComponent({
 .main-content,
 .page {
   height: 100%;
-}
-
 .page-content {
   height: calc(100% - 48px);
 
