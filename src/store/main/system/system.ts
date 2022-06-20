@@ -21,8 +21,6 @@ const systemModule: Module<ISystemState, IRootState> = {
   },
   actions: {
     async getUPageListAction({ commit }, payload: any) {
-      console.log('payload', payload)
-
       const pageResult = await getPageListData(payload.url, payload.queryInfo)
       const { list, totalCount } = pageResult.data
       commit('changeUserList', list)

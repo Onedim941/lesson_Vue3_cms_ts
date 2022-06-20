@@ -20,7 +20,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      registerRouterList: []
     }
   },
   mutations: {
@@ -36,6 +37,8 @@ const loginModule: Module<ILoginState, IRootState> = {
       // registerRouter(menus, router)
       // 老师的方法
       const routers = mapMenusToRouters(menus)
+      // 存入需要注册的路由
+      state.registerRouterList = routers
       routers.forEach((route) => {
         router.addRoute('main', route)
       })

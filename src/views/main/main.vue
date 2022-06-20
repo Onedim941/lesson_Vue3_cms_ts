@@ -8,9 +8,14 @@
         <el-header class="page-header">
           <NavHeader @changeFold="handlnChangeFold" />
         </el-header>
+        <NavTab />
         <el-main class="page-content">
           <div class="content">
-            <router-view></router-view>
+            <router-view v-slot="{ Component }">
+              <keep-alive :include="keepAliveRoute">
+                <component :is="Component"></component>
+              </keep-alive>
+            </router-view>
           </div>
         </el-main>
       </el-container>
@@ -18,28 +23,41 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script lang="ts" setup name="main">
+import { computed, defineComponent, ref } from 'vue'
 import NavMenu from '@/components/nav-menu'
 import NavHeader from '@/components/nav-header'
+import NavTab from '@/components/nav-tab'
+import { useStore } from '@/store'
 
-export default defineComponent({
-  components: { NavMenu, NavHeader },
-  setup() {
-    const collapse = ref(false)
-    const handlnChangeFold = (isFold: boolean) => {
-      collapse.value = isFold
-    }
+const store = useStore()
+const collapse = ref(false)
+const handlnChangeFold = (isFold: boolean) => {
+  collapse.value = isFold
+}
 
-    return {
-      collapse,
-      handlnChangeFold
-    }
-  }
-})
+// todo:给组件加上name以使用缓存
+const keepAliveRoute = computed(() => setKeepAliveRoute())
+const setKeepAliveRoute = () => {
+  const registerRouterList = computed(
+    () => store.state.loginModule.registerRouterList
+  )
+  const navTabList = computed(() => store.state.navTabModule.navTabList)
+  const names: any[] = []
+  registerRouterList.value.forEach((item) => {
+    navTabList.value.forEach((nav) => {
+      if (item.path === nav.url) {
+        names.push(item.name)
+      }
+    })
+  })
+  console.log('names', names)
+
+  return names
+}
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
 .main {
   position: fixed;
   top: 0;
@@ -51,6 +69,7 @@ export default defineComponent({
 .main-content,
 .page {
   height: 100%;
+}
 .page-content {
   height: calc(100% - 48px);
 

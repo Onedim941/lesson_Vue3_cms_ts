@@ -24,6 +24,7 @@ import PageSearch from '@/components/page-search'
 import { useStore } from '@/store'
 
 export default defineComponent({
+  name: 'user',
   components: { PageSearch },
   setup() {
     const store = useStore()

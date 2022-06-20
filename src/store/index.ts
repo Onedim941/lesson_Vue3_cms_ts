@@ -3,6 +3,7 @@ import type { IRootState, IStoreType } from './types'
 import type { Store } from 'vuex'
 import loginModule from './login/login'
 import systemModule from './main/system/system'
+import navTabModule from './main/nav-tab/nav-tab'
 
 const store = createStore({
   state: (): IRootState => {
@@ -19,7 +20,8 @@ const store = createStore({
   getters: {},
   modules: {
     loginModule,
-    systemModule
+    systemModule,
+    navTabModule
   }
 })
 

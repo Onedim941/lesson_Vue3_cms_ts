@@ -4,6 +4,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import localCache from '@/utils/cache'
 import { fristMenu } from '@/utils/map-menus'
 // import { registerRouter } from './hooks'
+import routerChange from '@/utils/nav-tab'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -42,7 +43,8 @@ router.beforeEach((to) => {
     if (!token) {
       return '/login'
     }
-
+    // 改变tab
+    routerChange(to.path)
     if (to.path === '/main') {
       if (fristMenu) {
         return fristMenu.url

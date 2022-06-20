@@ -17,4 +17,7 @@ export default defineComponent({
 .app {
   height: 100%;
 }
+li {
+  list-style: none;
+}
 </style>

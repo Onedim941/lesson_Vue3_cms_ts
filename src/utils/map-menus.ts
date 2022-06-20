@@ -37,7 +37,7 @@ export function mapMenusToRouters(userMenus: any[]): RouteRecordRaw[] {
   }
   // 再根据后端给的菜单做匹配  需要动态添加哪些路由
   _recurseGetRoute(userMenus)
-  // console.log('routes', routes)
+  // console.log('routes---', routes)
   return routes
 }
 

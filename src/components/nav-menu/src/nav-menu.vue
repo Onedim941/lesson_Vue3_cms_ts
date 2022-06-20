@@ -50,9 +50,9 @@
 
 <script lang="ts">
 import { useStore } from '@/store'
+import eventBus from '@/utils/eventBus'
 import { pathMapToMenu } from '@/utils/map-menus'
-import { emit } from 'process'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -86,7 +86,16 @@ export default defineComponent({
     const currentMenu = pathMapToMenu(userMenus.value, currentPath)
 
     const defaultActiveMenu = ref(currentMenu.id)
-    // console.log('defaultActiveMenu', defaultActiveMenu)
+    // console.log('defaultActiveMenu', defaultActiveMenu.value)
+
+    eventBus.on('routerChange', (id) => {
+      defaultActiveMenu.value = id
+    })
+
+    // 销毁监听
+    onBeforeUnmount(() => {
+      eventBus.off('routerChange')
+    })
 
     return {
       userMenus,
