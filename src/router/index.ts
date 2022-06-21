@@ -38,13 +38,17 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   // 没有登录就跳到登录页
+  console.log('to', to.path)
+
   if (to.path !== '/login') {
     const token = localCache.getCache('token')
     if (!token) {
       return '/login'
     }
     // 改变tab
-    routerChange(to.path)
+    if (to.path !== '/main') {
+      routerChange(to.path)
+    }
     if (to.path === '/main') {
       if (fristMenu) {
         return fristMenu.url
