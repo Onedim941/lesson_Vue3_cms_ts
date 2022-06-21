@@ -35,6 +35,7 @@ const router = createRouter({
 
 // registerRouter(router)
 // router.getRoutes() //可以获取所有的routers
+// 冲突test
 
 router.beforeEach((to) => {
   // 没有登录就跳到登录页
