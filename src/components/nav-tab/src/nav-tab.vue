@@ -4,13 +4,18 @@
       <li
         v-for="(item, index) in navTabList"
         :key="item.url"
-        :class="['nav-tab-item', currentPath === item.url ? 'active-tab' : '']"
+        class="nav-tab-item"
         @mouseenter="handleMouseEnter(index)"
         @mouseleave="handleMouseLeave"
       >
-        <div @click="handleClick(item)">{{ item.name }}</div>
+        <div
+          @click="handleClick(item)"
+          :class="currentPath === item.url ? 'active-tab' : ''"
+        >
+          {{ item.name }}
+        </div>
         <el-icon class="close-icon"
-          ><CircleCloseFilled
+          ><Close
             @click="deleteTab(item, index)"
             v-if="currentIndex === index && navTabList.length > 1"
         /></el-icon>
@@ -80,7 +85,9 @@ const deleteTab = (item: any, index: number) => {
       }
     }
     .active-tab {
-      color: red;
+      color: #046fe1;
+      border-bottom: 2px solid #046fe1;
+      padding-bottom: 5px;
     }
   }
 }
