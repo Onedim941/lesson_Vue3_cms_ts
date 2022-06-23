@@ -5,13 +5,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, onActivated } from 'vue'
 
 export default defineComponent({
-  name: 'menu',
-  setup() {
-    return {}
-  }
+  name: 'menu'
 })
 </script>
 

@@ -23,7 +23,12 @@
   </div>
 </template>
 
-<script lang="ts" setup name="main">
+<script lang="ts">
+export default {
+  name: 'main'
+}
+</script>
+<script lang="ts" setup>
 import { computed, defineComponent, ref } from 'vue'
 import NavMenu from '@/components/nav-menu'
 import NavHeader from '@/components/nav-header'
