@@ -12,6 +12,8 @@
       :data="data"
       v-bind="tableOption"
       @selection-change="headleSelectionChange"
+      row-key="id"
+      :treeprops="{ children: 'children' }"
     >
       <template v-for="item in propsList" :key="item.prop">
         <el-table-column v-if="item.select" type="selection"></el-table-column>
@@ -30,20 +32,18 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <slot name="footer">
-        <!-- <el-pagination
-          v-model:currentPage="currentPage4"
-          v-model:page-size="pageSize4"
-          :page-sizes="[100, 200, 300, 400]"
-          :small="small"
-          :disabled="disabled"
-          :background="background"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
-          @size-change="handleSizeChange"
+        <el-pagination
           @current-change="handleCurrentChange"
-        /> -->
+          @size-change="handleSizeChange"
+          :current-page="page.currentPage"
+          :page-size="page.pageSize"
+          :page-sizes="[10, 20, 30, 40, 50]"
+          small="small"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="dataCount"
+        />
       </slot>
     </div>
   </div>
@@ -51,7 +51,7 @@
 
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue'
-const emit = defineEmits(['selectionChange'])
+const emit = defineEmits(['selectionChange', 'update:page'])
 
 const props = defineProps({
   title: {
@@ -61,6 +61,10 @@ const props = defineProps({
   data: {
     type: Array,
     default: () => []
+  },
+  dataCount: {
+    type: Number,
+    default: 0
   },
   propsList: {
     type: Array as any,
@@ -77,11 +81,26 @@ const props = defineProps({
   tableOption: {
     type: Object,
     default: () => ({})
+  },
+  page: {
+    type: Object,
+    default: () => ({ currentPage: 0, pageSize: 10 })
+  },
+  showFooter: {
+    type: Boolean,
+    default: true
   }
 })
 
 const headleSelectionChange = (value: any) => {
   emit('selectionChange', value)
+}
+
+const handleCurrentChange = (currentPage: number) => {
+  emit('update:page', { ...props.page, currentPage })
+}
+const handleSizeChange = (pageSize: number) => {
+  emit('update:page', { ...props.page, pageSize })
 }
 </script>
 
@@ -95,6 +114,11 @@ const headleSelectionChange = (value: any) => {
       font-size: 16px;
       font-weight: 700;
     }
+  }
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
   }
 }
 </style>

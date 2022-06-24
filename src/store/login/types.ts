@@ -6,6 +6,8 @@ export interface ILoginState {
   userMenus: any
   // 需要注册的路由列表
   registerRouterList: RouteRecordRaw[]
+  // 权限列表
+  permissions: string[]
 }
 
 export interface ILoginResult {

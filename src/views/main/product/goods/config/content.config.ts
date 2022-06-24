@@ -1,13 +1,38 @@
 export const pageContentConfig = {
-  title: '用户列表',
+  title: '商品列表',
   propsList: [
-    { select: true, align: 'center', width: '100' },
     { sort: true, align: 'center', width: '100' },
-    { prop: 'name', label: '用户名', minWidth: '180', align: 'center' },
-    { prop: 'realname', label: '真实名字', width: '180', align: 'center' },
-    { prop: 'cellphone', label: '电话号码', width: '180', align: 'center' },
     {
-      prop: 'enable',
+      prop: 'name',
+      label: '商品名称',
+      minWidth: '100',
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'oldPrice',
+      label: '原价格',
+      width: '80',
+      align: 'center',
+      slotName: 'oldPrice'
+    },
+    {
+      prop: 'newPrice',
+      label: '现价格',
+      width: '80',
+      align: 'center',
+      slotName: 'newPrice'
+    },
+    {
+      prop: 'imgUrl',
+      label: '图片',
+      width: '100',
+      align: 'center',
+      showOverflowTooltip: true,
+      slotName: 'image'
+    },
+    {
+      prop: 'status',
       label: '状态',
       width: '100',
       slotName: 'enable',

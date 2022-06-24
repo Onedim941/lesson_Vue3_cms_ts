@@ -36,11 +36,17 @@ export default defineComponent({
     }
     const modelData = ref<IModelData>({ ...orginData })
 
+    // 点击搜索
     const searchClick = () => {
       emit('searchClick', modelData.value)
+      console.log('查询', modelData.value)
     }
 
+    // 点击重置
     const resetClick = () => {
+      for (const key in orginData) {
+        modelData.value[key] = orginData[key]
+      }
       emit('resetClick')
     }
 

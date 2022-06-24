@@ -10,7 +10,7 @@ import {
 import localCache from '@/utils/cache'
 import router from '@/router'
 import { registerRouter } from '@/router/hooks'
-import { mapMenusToRouters } from '@/utils/map-menus'
+import { mapMenusToRouters, mapMenusToPermissions } from '@/utils/map-menus'
 
 // Module接口需要两个类型 S：模块中state得类型， R：根模块中state的类型
 const loginModule: Module<ILoginState, IRootState> = {
@@ -21,7 +21,8 @@ const loginModule: Module<ILoginState, IRootState> = {
       token: '',
       userInfo: {},
       userMenus: [],
-      registerRouterList: []
+      registerRouterList: [],
+      permissions: []
     }
   },
   mutations: {
@@ -42,6 +43,10 @@ const loginModule: Module<ILoginState, IRootState> = {
       routers.forEach((route) => {
         router.addRoute('main', route)
       })
+
+      // 获取用户菜单按钮权限
+      const permissions = mapMenusToPermissions(menus)
+      state.permissions = permissions
     }
   },
   actions: {

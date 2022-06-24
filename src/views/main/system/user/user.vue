@@ -5,7 +5,11 @@
       @searchClick="handleSearchClick"
       @resetClick="handleResetClick"
     />
-    <PageContent :pageContentConfig="pageContentConfig" :pageName="pageName" />
+    <PageContent
+      :pageContentConfig="pageContentConfig"
+      :pageName="pageName"
+      ref="pageContentRef"
+    />
   </div>
 </template>
 
@@ -22,15 +26,11 @@ import { pageContentConfig } from './config/content.config'
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
 
-const pageName = 'users'
+// 查询重置的hook
+import { usePageSearch } from '@/hooks/usePageSearch'
 
-// 处理form表单组件按钮点击
-const handleSearchClick = (modelValue: any) => {
-  console.log('handleSearchClick', modelValue)
-}
-const handleResetClick = () => {
-  console.log('handleResetClick')
-}
+const pageName = 'users'
+const { pageContentRef, handleSearchClick, handleResetClick } = usePageSearch()
 </script>
 
 <style lang="less" scoped></style>
