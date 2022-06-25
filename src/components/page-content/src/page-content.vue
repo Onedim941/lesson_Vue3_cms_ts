@@ -39,7 +39,7 @@
       </template>
 
       <!-- 操作栏的插槽 -->
-      <template #handler>
+      <template #handler="scope">
         <div class="handle-btn">
           <el-button size="small" type="text" :icon="Edit" v-if="isUpdate"
             >编辑</el-button
@@ -50,6 +50,7 @@
             :icon="Delete"
             class="del-btn"
             v-if="isDelect"
+            @click="handleDeleteClick(scope.row)"
             >删除</el-button
           >
         </div>
@@ -60,10 +61,11 @@
 
 <script lang="ts" setup>
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { defineProps, computed, defineExpose, ref, reactive, watch } from 'vue'
+import { defineProps, computed, defineExpose, ref, watch } from 'vue'
 import { useStore } from '@/store'
 import YxTable from '@/base-ui/table'
 import { usePermission } from '@/hooks/usePermission'
+import { ElMessageBox } from 'element-plus'
 
 const store = useStore()
 const props = defineProps({
@@ -80,7 +82,7 @@ const props = defineProps({
 // 获取用户拥有哪些权限
 const isCreate = usePermission(props.pageName as string, 'create')
 const isUpdate = usePermission(props.pageName as string, 'update')
-const isDelect = usePermission(props.pageName as string, 'delect')
+const isDelect = usePermission(props.pageName as string, 'delete')
 const isQuery = usePermission(props.pageName as string, 'query')
 
 // 定义pageInfo数据
@@ -116,12 +118,24 @@ const dataCount = computed(() =>
 const commonSlot = ['enable', 'createTimeSlot', 'updateTimeSlot', 'handler']
 const otherPropsSlots = props.pageContentConfig?.propsList.filter(
   (item: any) => {
-    // 过滤公共需要的插槽
+    // 过滤公共需要的插槽`
     if (item.slotName && commonSlot.indexOf(item.slotName) === -1) return true
     return false
   }
 )
-console.log('otherPropsSlots', otherPropsSlots)
+
+const handleDeleteClick = (item: any) => {
+  ElMessageBox.confirm('此项数据将会被删除，确定操作吗', '警告', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    store.dispatch('systemModule/deletePageDataAction', {
+      pageName: props.pageName,
+      id: item.id
+    })
+  })
+}
 
 defineExpose({ getPageData })
 </script>

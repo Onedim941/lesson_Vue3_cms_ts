@@ -116,7 +116,7 @@ export function mapMenusToPermissions(userMenus: any[]) {
       if (menu.type === 1 || menu.type === 2) {
         _recurseGetPermission(menu.children ?? [])
       } else if (menu.type === 3) {
-        permissions.push(menu.permissions)
+        permissions.push(menu.permission)
       }
     }
   }

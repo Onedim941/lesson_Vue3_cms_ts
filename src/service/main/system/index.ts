@@ -8,3 +8,10 @@ export function getPageListData(url: string, queryInfo: any) {
     data: queryInfo
   })
 }
+
+// 删除数据
+export function deletePageData(url: string) {
+  return yxRequest.delete<IDataType>({
+    url
+  })
+}

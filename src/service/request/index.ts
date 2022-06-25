@@ -97,8 +97,8 @@ class YXRequest {
   post<T>(config: YXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
-  delect<T>(config: YXRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'DELECT' })
+  delete<T>(config: YXRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'DELETE' })
   }
   patch<T>(config: YXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })

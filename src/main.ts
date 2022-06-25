@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import 'normalize.css'
 import './assets/css/index.less'
+import 'element-plus/theme-chalk/el-message.css'
+import 'element-plus/theme-chalk/el-message-box.css'
 import { setupStore } from './store'
 
 // 引入全局注册函数
