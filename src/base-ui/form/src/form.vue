@@ -7,7 +7,11 @@
       <el-row>
         <template v-for="item in formItems" :key="item.lable">
           <el-col v-bind="colLayout">
-            <el-form-item :label="item.label" :style="itemStyle">
+            <el-form-item
+              :label="item.label"
+              :style="itemStyle"
+              v-if="!item.isHidden"
+            >
               <!-- 输入框input -->
               <!-- v-bind可以将配置的属性全部绑定到元素上 -->
               <template
@@ -31,9 +35,9 @@
                   <el-option
                     v-for="opt in item.options"
                     :key="opt.value"
+                    :label="opt.label"
                     :value="opt.value"
                   >
-                    {{ opt.title }}
                   </el-option>
                 </el-select>
               </template>

@@ -36,5 +36,6 @@ export const pageContentConfig = {
   ],
   tableOption: {
     border: true
-  }
+  },
+  createBtnTitle: '新建用户'
 }

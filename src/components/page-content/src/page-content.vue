@@ -8,7 +8,9 @@
     >
       <!-- 头部插槽 -->
       <template #headerhandler>
-        <el-button type="primary" v-if="isCreate">新建用户</el-button>
+        <el-button type="primary" v-if="isCreate" @click="handleCreateClick">{{
+          pageContentConfig?.createBtnTitle
+        }}</el-button>
       </template>
 
       <!-- 列的插槽 -->
@@ -41,7 +43,12 @@
       <!-- 操作栏的插槽 -->
       <template #handler="scope">
         <div class="handle-btn">
-          <el-button size="small" type="text" :icon="Edit" v-if="isUpdate"
+          <el-button
+            size="small"
+            type="text"
+            :icon="Edit"
+            v-if="isUpdate"
+            @click="handleEditClick(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -61,11 +68,19 @@
 
 <script lang="ts" setup>
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { defineProps, computed, defineExpose, ref, watch } from 'vue'
+import {
+  defineProps,
+  computed,
+  defineExpose,
+  ref,
+  watch,
+  defineEmits
+} from 'vue'
 import { useStore } from '@/store'
 import YxTable from '@/base-ui/table'
 import { usePermission } from '@/hooks/usePermission'
 import { ElMessageBox } from 'element-plus'
+import { showMessage } from '@/utils/message'
 
 const store = useStore()
 const props = defineProps({
@@ -79,6 +94,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['handleCreateClick', 'handleEditClick'])
+
 // 获取用户拥有哪些权限
 const isCreate = usePermission(props.pageName as string, 'create')
 const isUpdate = usePermission(props.pageName as string, 'update')
@@ -90,13 +107,17 @@ const pageInfo = ref({ currentPage: 0, pageSize: 10 })
 watch(pageInfo, () => getPageData())
 
 // 获取表格数据
+const offset = computed(
+  () => pageInfo.value.currentPage * pageInfo.value.pageSize
+)
+const size = computed(() => pageInfo.value.pageSize)
 const getPageData = (queryInfo: any = {}) => {
   if (!isQuery) return
   store.dispatch('systemModule/getUPageListAction', {
     pageName: props.pageName,
     queryInfo: {
-      offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
-      size: pageInfo.value.pageSize,
+      offset: offset.value,
+      size: size.value,
       ...queryInfo
     }
   })
@@ -124,6 +145,7 @@ const otherPropsSlots = props.pageContentConfig?.propsList.filter(
   }
 )
 
+// 处理删除点击
 const handleDeleteClick = (item: any) => {
   ElMessageBox.confirm('此项数据将会被删除，确定操作吗', '警告', {
     confirmButtonText: '确定',
@@ -132,9 +154,23 @@ const handleDeleteClick = (item: any) => {
   }).then(() => {
     store.dispatch('systemModule/deletePageDataAction', {
       pageName: props.pageName,
-      id: item.id
+      id: item.id,
+      pageInfo: {
+        offset: offset.value,
+        size: size.value
+      }
     })
   })
+}
+
+// 处理新建按钮点击
+const handleCreateClick = () => {
+  emit('handleCreateClick')
+}
+
+// 处理编辑点击
+const handleEditClick = (item: any) => {
+  emit('handleEditClick', item)
 }
 
 defineExpose({ getPageData })

@@ -16,16 +16,18 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from 'vue'
 import YxForm from '@/base-ui/form/index'
-
-interface IModelData {
-  [key: string]: any
-}
+import { IModelData } from '../types'
+import { useStore } from '@/store'
 
 export default defineComponent({
   props: {
     searchFormConfig: {
       type: Object,
       default: () => ({})
+    },
+    pageName: {
+      type: String,
+      require: true
     }
   },
   components: { YxForm },
@@ -35,11 +37,30 @@ export default defineComponent({
       orginData[config.fieid] = ''
     }
     const modelData = ref<IModelData>({ ...orginData })
+    /*
+        将modelData查询数据绑定一份到vuex，以便vuex查询数据的时候再获取使用
+        待优化：1.其他地方获取查询数据的时候也直接从vuex获取，而不是emit发射出去
+        2.pageInfo也绑定到vuex中。
+    */
+    const store = useStore()
+    const changeQueryInfo = (pageName: string, queryInfo: IModelData) => {
+      store.commit('systemModule/changeQueryInfo', {
+        pageName,
+        queryInfo
+      })
+    }
+    changeQueryInfo(props.pageName as string, modelData.value)
+    watch(
+      () => modelData,
+      (newValue) => {
+        changeQueryInfo(props.pageName as string, newValue.value)
+      },
+      { deep: true }
+    )
 
     // 点击搜索
     const searchClick = () => {
       emit('searchClick', modelData.value)
-      console.log('查询', modelData.value)
     }
 
     // 点击重置

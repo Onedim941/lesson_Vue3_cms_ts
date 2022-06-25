@@ -3,8 +3,6 @@ import YXRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
 import localCache from '@/utils/cache'
 
-console.log('BASE_URL', BASE_URL)
-
 const yxRequest = new YXRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,

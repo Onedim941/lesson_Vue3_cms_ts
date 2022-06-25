@@ -1,12 +1,18 @@
 import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
 import { ISystemState } from './types'
-import { deletePageData, getPageListData } from '@/service/main/system'
+import {
+  ceaterPageData,
+  deletePageData,
+  editPageData,
+  getPageListData
+} from '@/service/main/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
   state() {
     return {
+      queryInfo: {},
       usersList: [],
       usersCount: 0,
       roleList: [],
@@ -18,6 +24,9 @@ const systemModule: Module<ISystemState, IRootState> = {
     }
   },
   mutations: {
+    changeQueryInfo(state, payload: any) {
+      state.queryInfo[payload.pageName] = payload.queryInfo
+    },
     changeUsersList(state, list: any[]) {
       state.usersList = list
     },
@@ -54,12 +63,35 @@ const systemModule: Module<ISystemState, IRootState> = {
       commit(`change${fnName}Count`, totalCount)
     },
     // 删除
-    async deletePageDataAction({ dispatch }, payload: any) {
-      const { pageName, id } = payload
+    async deletePageDataAction({ state, dispatch }, payload: any) {
+      const { pageName, id, pageInfo } = payload
       const url = `${pageName}/${id}`
       const res = await deletePageData(url)
       dispatch('getUPageListAction', {
-        pageName
+        pageName,
+        queryInfo: { ...state.queryInfo[pageName], ...pageInfo }
+      })
+    },
+    // 新建
+    async createPageDataAction({ dispatch }, payload: any) {
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName}`
+      await ceaterPageData(pageUrl, newData)
+      // 待优化： 默认查询项
+      dispatch('getUPageListAction', {
+        pageName,
+        queryInfo: { offset: 0, size: 10 }
+      })
+    },
+    // 编辑
+    async editPageDataAction({ dispatch }, payload: any) {
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      await editPageData(pageUrl, editData)
+      // 待优化： 默认查询项
+      dispatch('getUPageListAction', {
+        pageName,
+        queryInfo: { offset: 0, size: 10 }
       })
     }
   },

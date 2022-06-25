@@ -1,4 +1,6 @@
+import { IModelData } from '@/components/page-search/types'
 export interface ISystemState {
+  queryInfo: IModelData
   usersList: any[]
   usersCount: number
   roleList: any[]

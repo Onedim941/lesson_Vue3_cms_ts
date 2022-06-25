@@ -10,11 +10,14 @@ export interface IFormItem {
   // 其他特殊选项
   otherOptions?: any
   fieid: string
+  // 是否隐藏此项item
+  isHidden?: boolean
 }
 
-export interface IFrom {
+export interface IForm {
   formItems: IFormItem[]
   labelWidth?: string
-  calLayout?: any
+  itemStyle?: any
+  colLayout?: any
   itemLayout?: any
 }

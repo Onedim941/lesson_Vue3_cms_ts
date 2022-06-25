@@ -1,6 +1,6 @@
-import { IFrom } from '@/base-ui/form/index'
+import { IForm } from '@/base-ui/form/index'
 
-export const searchFormConfig: IFrom = {
+export const searchFormConfig: IForm = {
   formItems: [
     {
       fieid: 'id',

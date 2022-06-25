@@ -1,6 +1,6 @@
-import { IFrom } from '@/base-ui/form/index'
+import { IForm } from '@/base-ui/form/index'
 
-export const searchFormConfig: IFrom = {
+export const searchFormConfig: IForm = {
   formItems: [
     {
       fieid: 'id',
@@ -38,11 +38,11 @@ export const searchFormConfig: IFrom = {
       placeholder: '请选择用户状态',
       options: [
         {
-          title: '启用',
+          label: '启用',
           value: 1
         },
         {
-          title: '禁用',
+          label: '禁用',
           value: 0
         }
       ]

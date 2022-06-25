@@ -8,20 +8,18 @@ import type {
 
 export function showMessage(option?: MessageParams) {
   class message {
-    instance: any
+    private instance: any
     constructor(option?: MessageParams) {
-      if (option) {
-        this.instance = ElMessage(option)
-        return this.instance
-      }
+      this.instance = ElMessage(option)
+      return this.instance
     }
-    success(option?: MessageParams) {
+    success(option: MessageParams) {
       return ElMessage.success(option)
     }
-    warning(option?: MessageParams) {
+    warning(option: MessageParams) {
       return ElMessage.warning(option)
     }
-    error(option?: MessageParams) {
+    error(option: MessageParams) {
       return ElMessage.error(option)
     }
   }

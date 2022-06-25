@@ -1,9 +1,9 @@
-import { IFrom } from '@/base-ui/form/index'
+import { IForm } from '@/base-ui/form/index'
 
-export const searchFormConfig: IFrom = {
+export const searchFormConfig: IForm = {
   formItems: [
     {
-      fieid: 'username',
+      fieid: 'name',
       type: 'input',
       label: '角色名称',
       rules: [],
@@ -16,7 +16,7 @@ export const searchFormConfig: IFrom = {
       placeholder: '请输入权限介绍'
     },
     {
-      fieid: 'createTime',
+      fieid: 'createAt',
       type: 'datepicker',
       label: '创建时间',
       otherOptions: {

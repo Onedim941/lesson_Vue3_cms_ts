@@ -4,6 +4,8 @@ import { INavTab } from './main/nav-tab/types'
 
 export interface IRootState {
   msg: string
+  entireDepartment: any[]
+  entireRole: any[]
 }
 
 export interface IRootWithModule {
