@@ -50,7 +50,7 @@ const loginModule: Module<ILoginState, IRootState> = {
     }
   },
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       const loginResult = await accountLoginRequest(payload)
       if (loginResult.code === 0) {
         // 1. 登录
@@ -65,6 +65,9 @@ const loginModule: Module<ILoginState, IRootState> = {
         const userMenuResult = await requestUserMenuByRoleId(
           userInfoResult.data.role.id
         )
+
+        // 获取部门 角色 数据
+        dispatch('getInitialDataAction', null, { root: true })
         const userMenu = userMenuResult.data
         commit('changUserMenus', userMenu)
         localCache.setCache('userMenu', userMenu)
@@ -74,13 +77,15 @@ const loginModule: Module<ILoginState, IRootState> = {
         localCache.delectCache('userInfo')
       }
     },
-    loadLocalAction({ commit }) {
+    loadLocalAction({ commit, dispatch }) {
       const token = localCache.getCache('token') ?? ''
       const userInfo = localCache.getCache('userInfo') ?? {}
       const userMenu = localCache.getCache('userMenu') ?? []
       commit('changeToken', token)
       commit('changUserInfo', userInfo)
       commit('changUserMenus', userMenu)
+      // 获取部门 角色 数据
+      dispatch('getInitialDataAction', null, { root: true })
     }
   },
   getters: {}

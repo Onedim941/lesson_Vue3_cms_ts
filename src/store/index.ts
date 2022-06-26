@@ -13,7 +13,9 @@ const store = createStore({
       // 部门列表
       entireDepartment: [],
       // 角色列表
-      entireRole: []
+      entireRole: [],
+      // 角色菜单
+      entireMenu: []
     }
   },
   mutations: {
@@ -25,6 +27,9 @@ const store = createStore({
     },
     changeRole(state, list) {
       state.entireRole = list
+    },
+    changeEntireMenu(state, list) {
+      state.entireMenu = list
     }
   },
   actions: {
@@ -39,8 +44,11 @@ const store = createStore({
         offset: 0,
         size: 1000
       })
+      // 获取角色菜单
+      const roleMenuRes = await getPageListData('/menu/list', {})
       commit('changeDepartment', depRes.data.list)
       commit('changeRole', roleRes.data.list)
+      commit('changeEntireMenu', roleMenuRes.data.list)
     }
   },
   getters: {},
@@ -54,8 +62,6 @@ const store = createStore({
 // 刷新时初始化 vuex
 export function setupStore() {
   store.dispatch('loginModule/loadLocalAction')
-  // 获取部门 角色 数据
-  store.dispatch('getInitialDataAction')
 }
 
 export function useStore(): Store<IStoreType> {

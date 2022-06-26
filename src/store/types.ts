@@ -6,6 +6,7 @@ export interface IRootState {
   msg: string
   entireDepartment: any[]
   entireRole: any[]
+  entireMenu: any[]
 }
 
 export interface IRootWithModule {

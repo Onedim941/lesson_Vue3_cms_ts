@@ -7,7 +7,8 @@
       destroy-on-close
       center
     >
-      <YxForm v-bind="pageModalConfig" v-model="formData"></YxForm>
+      <YxForm v-bind="pageModalConfig" v-model="formData"> </YxForm>
+      <slot></slot>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
         <el-button type="primary" @click="handleConfirmClick">确定</el-button>
@@ -32,7 +33,13 @@ const props = defineProps({
     type: String,
     require: true
   },
+  // 用于点击编辑时传入进来的回显数据项
   defaultInfo: {
+    type: Object,
+    default: () => ({})
+  },
+  // 其他的数据绑定项，fromData以外的，如新建角色中的菜单控制
+  otherInfo: {
     type: Object,
     default: () => ({})
   },
@@ -73,14 +80,14 @@ const handleConfirmClick = () => {
   if (Object.keys(props.defaultInfo).length) {
     // 如果长度不为0 说明是编辑
     store.dispatch('systemModule/editPageDataAction', {
-      editData: { ...formData.value },
+      editData: { ...formData.value, ...props.otherInfo },
       pageName: props.pageName,
       id: props.defaultInfo.id
     })
   } else {
     // 新建
     store.dispatch('systemModule/createPageDataAction', {
-      newData: { ...formData.value },
+      newData: { ...formData.value, ...props.otherInfo },
       pageName: props.pageName
     })
   }

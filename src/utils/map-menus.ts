@@ -124,4 +124,20 @@ export function mapMenusToPermissions(userMenus: any[]) {
   return permissions
 }
 
+// 只遍历出叶子节点进行设置
+export function getMenuLeafKeys(menuList: any[]) {
+  const meunIdList: number[] = []
+  const _recurseMenuList = (menus: any[]) => {
+    for (const item of menus) {
+      if (item.children) {
+        _recurseMenuList(item.children)
+      } else {
+        meunIdList.push(item.id)
+      }
+    }
+  }
+  _recurseMenuList(menuList)
+  return meunIdList
+}
+
 export { fristMenu }

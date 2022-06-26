@@ -103,12 +103,12 @@ const isDelect = usePermission(props.pageName as string, 'delete')
 const isQuery = usePermission(props.pageName as string, 'query')
 
 // 定义pageInfo数据
-const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+const pageInfo = ref({ currentPage: 1, pageSize: 10 })
 watch(pageInfo, () => getPageData())
 
 // 获取表格数据
 const offset = computed(
-  () => pageInfo.value.currentPage * pageInfo.value.pageSize
+  () => (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize
 )
 const size = computed(() => pageInfo.value.pageSize)
 const getPageData = (queryInfo: any = {}) => {
@@ -170,6 +170,8 @@ const handleCreateClick = () => {
 
 // 处理编辑点击
 const handleEditClick = (item: any) => {
+  console.log('row-', item)
+
   emit('handleEditClick', item)
 }
 
