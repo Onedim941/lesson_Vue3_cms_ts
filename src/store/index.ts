@@ -4,6 +4,7 @@ import type { Store } from 'vuex'
 import loginModule from './login/login'
 import systemModule from './main/system/system'
 import navTabModule from './main/nav-tab/nav-tab'
+import dashboardModule from './main/analysis/dashboard'
 import { getPageListData } from '@/service/main/system'
 
 const store = createStore({
@@ -55,7 +56,8 @@ const store = createStore({
   modules: {
     loginModule,
     systemModule,
-    navTabModule
+    navTabModule,
+    dashboardModule
   }
 })
 
