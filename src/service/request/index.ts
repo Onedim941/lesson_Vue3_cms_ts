@@ -54,7 +54,7 @@ class YXRequest {
       },
       (err) => {
         this.loading?.close()
-        if (err.response.status === 404) {
+        if (err.response?.status === 404) {
           console.log('404')
         }
         return err

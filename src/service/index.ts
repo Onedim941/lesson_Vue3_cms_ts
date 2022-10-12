@@ -35,4 +35,8 @@ const yxRequest = new YXRequest({
 //   baseURL: '地址2'
 // })
 
+export const request2 = new YXRequest({
+  baseURL: '/bilibili'
+})
+
 export default yxRequest

@@ -1,3 +1,11 @@
+<!--
+ * @Author: Onedim941 321610969@qq.com
+ * @Date: 2022-06-26 21:38:32
+ * @LastEditors: Onedim941 321610969@qq.com
+ * @LastEditTime: 2022-10-11 16:59:49
+ * @FilePath: \vue3-cms-ts\src\components\nav-tab\src\nav-tab.vue
+ * @Description:
+-->
 <template>
   <div class="nav-tab">
     <ul class="nav-tab-list">
@@ -85,8 +93,8 @@ const deleteTab = (item: any, index: number) => {
       }
     }
     .active-tab {
-      color: #046fe1;
-      border-bottom: 2px solid #046fe1;
+      color: var(--el-color-primary);
+      border-bottom: 2px solid var(--el-color-primary);
       padding-bottom: 5px;
     }
   }

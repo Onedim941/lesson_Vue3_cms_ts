@@ -1,3 +1,11 @@
+/*
+ * @Author: Onedim941 321610969@qq.com
+ * @Date: 2022-06-26 21:38:32
+ * @LastEditors: Onedim941 321610969@qq.com
+ * @LastEditTime: 2022-10-11 18:40:56
+ * @FilePath: \vue3-cms-ts\vue.config.js
+ * @Description:
+ */
 // const path = require('path')
 // const unpluginElementPlus = require('unplugin-element-plus/webpack')
 // 自动按需导入elementui
@@ -10,6 +18,7 @@ module.exports = {
   outputDir: './build',
   publicPath: './', // 加载资源路径 上线时不要使用
   // 配置方式二： 和webpack属性完全一致。最后会进行合并
+  transpileDependencies: ['/@yabby-business/'],
   configureWebpack: {
     resolve: {
       alias: {

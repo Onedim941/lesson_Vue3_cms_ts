@@ -1,9 +1,19 @@
+/*
+ * @Author: Onedim941 321610969@qq.com
+ * @Date: 2022-06-26 21:38:32
+ * @LastEditors: Onedim941 321610969@qq.com
+ * @LastEditTime: 2022-10-11 19:34:02
+ * @FilePath: \vue3-cms-ts\src\main.ts
+ * @Description:
+ */
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'normalize.css'
 import './assets/css/index.less'
+import './assets/css/tailwind.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/el-message-box.css'
 import { setupStore } from './store'

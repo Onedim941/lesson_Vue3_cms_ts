@@ -181,11 +181,15 @@ defineExpose({ getPageData })
 <style lang="less" scoped>
 .page-content {
   padding: 20px;
-  border-top: 10px solid #f5f5f5;
+  border-top: 10px solid #f0f2f5;
   .handle-btn {
     .del-btn {
       color: red;
     }
   }
+}
+
+.dark .page-content {
+  border-top: 10px solid var(--el-bg-color);
 }
 </style>

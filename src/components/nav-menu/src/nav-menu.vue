@@ -5,10 +5,7 @@
       <span class="title" v-show="!collapse">Vue+TS</span>
     </div>
     <el-menu
-      background-color="#0c2135"
       :collapse="collapse"
-      text-color="#b7bdc3"
-      active-text-color="#0a60bd"
       :default-active="defaultActiveMenu + ''"
       class="el-menu-vertical"
     >
@@ -110,7 +107,7 @@ export default defineComponent({
 <style scoped lang="less">
 .nav-menu {
   height: 100%;
-  background-color: #001529;
+  // background-color: #001529;
 
   .logo {
     display: flex;
@@ -128,7 +125,7 @@ export default defineComponent({
     .title {
       font-size: 16px;
       font-weight: 700;
-      color: white;
+      color: var(--el-menu-text-color);
     }
   }
 
@@ -152,12 +149,14 @@ export default defineComponent({
 
   // hover 高亮
   .el-menu-item:hover {
-    color: #fff !important; // 菜单
+    // color: #fff !important; // 菜单
   }
 
   .el-menu-item.is-active {
-    color: #fff !important;
-    background-color: #0a60bd !important;
+    // color: #fff !important;
+    // background-color: #0a60bd !important;
+    color: #fff;
+    background-color: var(--el-menu-active-color);
   }
 }
 

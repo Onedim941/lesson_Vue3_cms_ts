@@ -1,5 +1,16 @@
 <template>
   <div class="dashboard">
+    <el-row :gutter="10" class="amount-row">
+      <el-col
+        :md="12"
+        :lg="6"
+        :xl="6"
+        v-for="item in amountList"
+        :key="item.amount"
+      >
+        <StatisticalPanel :panelData="item"></StatisticalPanel>
+      </el-col>
+    </el-row>
     <el-row :gutter="10">
       <el-col :span="7">
         <yxCard title="分类商品数量(饼图)">
@@ -51,6 +62,7 @@ import { useStore } from '@/store'
 import { computed, nextTick, onMounted, ref } from 'vue'
 import yxCard from '@/base-ui/card'
 import BaseEchart from '@/base-ui/echart'
+import StatisticalPanel from '@/components/statistical-panel'
 import {
   PieEchart,
   RoseEchart,
@@ -59,8 +71,15 @@ import {
   MapEchart
 } from '@/components/page-echarts'
 
+// 发起数据请求
 const store = useStore()
 store.dispatch('dashboardModule/getDashboardDataAction')
+
+// 顶部top数据
+const amountList = computed(() => {
+  return store.state.dashboardModule.amountList
+})
+
 // 饼图数据
 const categoryGoodsCount = computed(() => {
   return store.state.dashboardModule.categoryGoodsCount.map((item) => {
@@ -100,7 +119,13 @@ const addressGoodsSale = computed(() => {
 </script>
 
 <style scoped>
+.dashboard {
+  background: #f0f2f5;
+}
 .content-row {
   margin-top: 20px;
+}
+.amount-row {
+  margin-bottom: 30px;
 }
 </style>

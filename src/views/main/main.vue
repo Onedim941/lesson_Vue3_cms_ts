@@ -9,7 +9,7 @@
           <NavHeader @changeFold="handlnChangeFold" />
         </el-header>
         <NavTab />
-        <el-main class="page-content">
+        <el-main class="page-content dark:dark-page-content">
           <div class="content">
             <router-view v-slot="{ Component }">
               <keep-alive :include="keepAliveRoute">
@@ -84,6 +84,18 @@ const setKeepAliveRoute = () => {
   }
 }
 
+// 暗黑模式
+.dark .el-main {
+  background-color: var(--el-bg-color);
+  color: var(--el-text-color-primary);
+}
+.dark .page-content {
+  .content {
+    background-color: var(--el-bg-color-overlay);
+    color: var(--el-text-color-primary);
+  }
+}
+
 .el-header,
 .el-footer {
   display: flex;
@@ -102,7 +114,7 @@ const setKeepAliveRoute = () => {
   line-height: 200px;
   text-align: left;
   cursor: pointer;
-  background-color: #001529;
+  // background-color: #001529;
   transition: width 0.3s linear;
   scrollbar-width: none; /* firefox */
   -ms-overflow-style: none; /* IE 10+ */

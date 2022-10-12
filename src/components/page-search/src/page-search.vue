@@ -1,3 +1,11 @@
+<!--
+ * @Author: Onedim941 321610969@qq.com
+ * @Date: 2022-06-26 21:40:56
+ * @LastEditors: Onedim941 321610969@qq.com
+ * @LastEditTime: 2022-09-08 15:22:20
+ * @FilePath: \vue3-cms-ts\src\components\page-search\src\page-search.vue
+ * @Description:
+-->
 <template>
   <div class="search">
     <yx-form v-bind="searchFormConfig" v-model="modelData">
